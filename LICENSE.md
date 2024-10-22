@@ -1,3 +1,5 @@
+below is Friday Night Funkin's License, i wish to abide by these so please follow them if you plan on using this engine!
+
 "Friday Night Funkin'" and the "Friday Night Funkin'" logo are trademarks of  The Funkin' Crew Inc.
 
 Copyright 2020-2024 The Funkin' Crew Inc.
