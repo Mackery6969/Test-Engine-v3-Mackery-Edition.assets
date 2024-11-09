@@ -22,6 +22,7 @@ import flixel.addons.display.FlxTiledSprite;
 import flixel.addons.display.FlxBackdrop;
 import funkin.graphics.shaders.AdjustColorShader;
 import StringTools;
+import funkin.Preferences;
 
 class PhillyStreetsErectStage extends Stage
 {
@@ -128,33 +129,36 @@ class PhillyStreetsErectStage extends Stage
 		// carSndAmbience.volume = 0;
 		// carSndAmbience.play(false, FlxG.random.float(0, carSndAmbience.length));
 
-		// rainShader.puddleMap = Assets.getBitmapData(Paths.image("phillyStreets/puddle"));
-		rainShader.scale = FlxG.height / 200; // adjust this value so that the rain looks nice
-
-		FlxG.console.registerObject("rainShader", rainShader);
-		switch (PlayState.instance.currentSong.id)
+		if (Preferences.quality == 'High')
 		{
-			case "darnell":
-				rainShaderStartIntensity = 0;
-				rainShaderEndIntensity = 0.01;
-			case "lit-up":
-				rainShaderStartIntensity = 0.01;
-				rainShaderEndIntensity = 0.02;
-			case "2hot":
-				rainShaderStartIntensity = 0.02;
-				rainShaderEndIntensity = 0.04;
+			// rainShader.puddleMap = Assets.getBitmapData(Paths.image("phillyStreets/puddle"));
+			rainShader.scale = FlxG.height / 200; // adjust this value so that the rain looks nice
+
+			FlxG.console.registerObject("rainShader", rainShader);
+			switch (PlayState.instance.currentSong.id)
+			{
+				case "darnell":
+					rainShaderStartIntensity = 0;
+					rainShaderEndIntensity = 0.01;
+				case "lit-up":
+					rainShaderStartIntensity = 0.01;
+					rainShaderEndIntensity = 0.02;
+				case "2hot":
+					rainShaderStartIntensity = 0.02;
+					rainShaderEndIntensity = 0.04;
+			}
+
+			rainShader.intensity = rainShaderStartIntensity;
+			rainShader.rainColor = 0xFFa8adb5;
+
+			// set the shader input
+			//rainShader.mask = frameBufferMan.getFrameBuffer("mask");
+			//rainShader.lightMap = frameBufferMan.getFrameBuffer("lightmap");
+
+			rainShaderFilter = new ShaderFilter(rainShader);
+			FlxG.camera.filters = [rainShaderFilter];
+			//FlxG.camera.setFilters([new openfl.filters.BlurFilter(16,16)]);
 		}
-
-		rainShader.intensity = rainShaderStartIntensity;
-		rainShader.rainColor = 0xFFa8adb5;
-
-		// set the shader input
-		//rainShader.mask = frameBufferMan.getFrameBuffer("mask");
-		//rainShader.lightMap = frameBufferMan.getFrameBuffer("lightmap");
-
-		rainShaderFilter = new ShaderFilter(rainShader);
-		FlxG.camera.filters = [rainShaderFilter];
-		//FlxG.camera.setFilters([new openfl.filters.BlurFilter(16,16)]);
 
 		resetCar(true, true);
 		resetStageValues();
@@ -180,82 +184,85 @@ class PhillyStreetsErectStage extends Stage
 		PlayState.instance.currentStage.add(scrollingSky);
 		PlayState.instance.currentStage.refresh(); // Apply z-index.
 
-		colorShader = new AdjustColorShader();
+		if (Preferences.quality == 'High')
+		{
+			colorShader = new AdjustColorShader();
 
-		mist0 = new FlxBackdrop(Paths.image('phillyStreets/erect/mistMid'), 0x01);
-		mist0.setPosition(-650, -100);
-		mist0.scrollFactor.set(1.2, 1.2);
-		mist0.zIndex = 1000;
-    mist0.blend = 0;
-		mist0.color = 0xFF5c5c5c;
-		mist0.alpha = 0.6;
-		mist0.velocity.x = 172;
+			mist0 = new FlxBackdrop(Paths.image('phillyStreets/erect/mistMid'), 0x01);
+			mist0.setPosition(-650, -100);
+			mist0.scrollFactor.set(1.2, 1.2);
+			mist0.zIndex = 1000;
+			mist0.blend = 0;
+			mist0.color = 0xFF5c5c5c;
+			mist0.alpha = 0.6;
+			mist0.velocity.x = 172;
 
-		PlayState.instance.currentStage.add(mist0);
-		PlayState.instance.currentStage.refresh(); // Apply z-index.
+			PlayState.instance.currentStage.add(mist0);
+			PlayState.instance.currentStage.refresh(); // Apply z-index.
 
-		mist1 = new FlxBackdrop(Paths.image('phillyStreets/erect/mistMid'), 0x01);
-		mist1.setPosition(-650, -100);
-		mist1.scrollFactor.set(1.1, 1.1);
-		mist1.zIndex = 1000;
-    mist1.blend = 0;
-		mist1.color = 0xFF5c5c5c;
-		mist1.alpha = 0.6;
-		mist1.velocity.x = 150;
+			mist1 = new FlxBackdrop(Paths.image('phillyStreets/erect/mistMid'), 0x01);
+			mist1.setPosition(-650, -100);
+			mist1.scrollFactor.set(1.1, 1.1);
+			mist1.zIndex = 1000;
+			mist1.blend = 0;
+			mist1.color = 0xFF5c5c5c;
+			mist1.alpha = 0.6;
+			mist1.velocity.x = 150;
 
-		PlayState.instance.currentStage.add(mist1);
-		PlayState.instance.currentStage.refresh(); // Apply z-index.
+			PlayState.instance.currentStage.add(mist1);
+			PlayState.instance.currentStage.refresh(); // Apply z-index.
 
-		mist2 = new FlxBackdrop(Paths.image('phillyStreets/erect/mistBack'), 0x01);
-		mist2.setPosition(-650, -100);
-		mist2.scrollFactor.set(1.2, 1.2);
-		mist2.zIndex = 1001;
-    mist2.blend = 0;
-		mist2.color = 0xFF5c5c5c;
-		mist2.alpha = 0.8;
-		mist2.velocity.x = -80;
+			mist2 = new FlxBackdrop(Paths.image('phillyStreets/erect/mistBack'), 0x01);
+			mist2.setPosition(-650, -100);
+			mist2.scrollFactor.set(1.2, 1.2);
+			mist2.zIndex = 1001;
+			mist2.blend = 0;
+			mist2.color = 0xFF5c5c5c;
+			mist2.alpha = 0.8;
+			mist2.velocity.x = -80;
 
-		PlayState.instance.currentStage.add(mist2);
-		PlayState.instance.currentStage.refresh(); // Apply z-index.
+			PlayState.instance.currentStage.add(mist2);
+			PlayState.instance.currentStage.refresh(); // Apply z-index.
 
-		mist3 = new FlxBackdrop(Paths.image('phillyStreets/erect/mistMid'), 0x01);
-		mist3.setPosition(-650, -100);
-		mist3.scrollFactor.set(0.95, 0.95);
-		mist3.zIndex = 99;
-   	mist3.blend = 0;
-		mist3.color = 0xFF5c5c5c;
-		mist3.alpha = 0.5;
-		mist3.velocity.x = -50;
-		mist3.scale.set(0.8, 0.8);
+			mist3 = new FlxBackdrop(Paths.image('phillyStreets/erect/mistMid'), 0x01);
+			mist3.setPosition(-650, -100);
+			mist3.scrollFactor.set(0.95, 0.95);
+			mist3.zIndex = 99;
+			mist3.blend = 0;
+			mist3.color = 0xFF5c5c5c;
+			mist3.alpha = 0.5;
+			mist3.velocity.x = -50;
+			mist3.scale.set(0.8, 0.8);
 
-		PlayState.instance.currentStage.add(mist3);
-		PlayState.instance.currentStage.refresh(); // Apply z-index.
+			PlayState.instance.currentStage.add(mist3);
+			PlayState.instance.currentStage.refresh(); // Apply z-index.
 
-		mist4 = new FlxBackdrop(Paths.image('phillyStreets/erect/mistBack'), 0x01);
-		mist4.setPosition(-650, -100);
-		mist4.scrollFactor.set(0.8, 0.8);
-		mist4.zIndex = 88;
-   	mist4.blend = 0;
-		mist4.color = 0xFF5c5c5c;
-		mist4.alpha = 1;
-		mist4.velocity.x = 40;
-		mist4.scale.set(0.7, 0.7);
+			mist4 = new FlxBackdrop(Paths.image('phillyStreets/erect/mistBack'), 0x01);
+			mist4.setPosition(-650, -100);
+			mist4.scrollFactor.set(0.8, 0.8);
+			mist4.zIndex = 88;
+			mist4.blend = 0;
+			mist4.color = 0xFF5c5c5c;
+			mist4.alpha = 1;
+			mist4.velocity.x = 40;
+			mist4.scale.set(0.7, 0.7);
 
-		PlayState.instance.currentStage.add(mist4);
-		PlayState.instance.currentStage.refresh(); // Apply z-index.
+			PlayState.instance.currentStage.add(mist4);
+			PlayState.instance.currentStage.refresh(); // Apply z-index.
 
-		mist5 = new FlxBackdrop(Paths.image('phillyStreets/erect/mistMid'), 0x01);
-		mist5.setPosition(-650, -100);
-		mist5.scrollFactor.set(0.5, 0.5);
-		mist5.zIndex = 39;
-   	mist5.blend = 0;
-		mist5.color = 0xFF5c5c5c;
-		mist5.alpha = 1;
-		mist5.velocity.x = 20;
-		mist5.scale.set(1.1, 1.1);
+			mist5 = new FlxBackdrop(Paths.image('phillyStreets/erect/mistMid'), 0x01);
+			mist5.setPosition(-650, -100);
+			mist5.scrollFactor.set(0.5, 0.5);
+			mist5.zIndex = 39;
+			mist5.blend = 0;
+			mist5.color = 0xFF5c5c5c;
+			mist5.alpha = 1;
+			mist5.velocity.x = 20;
+			mist5.scale.set(1.1, 1.1);
 
-		PlayState.instance.currentStage.add(mist5);
-		PlayState.instance.currentStage.refresh(); // Apply z-index.
+			PlayState.instance.currentStage.add(mist5);
+			PlayState.instance.currentStage.refresh(); // Apply z-index.
+		}
 	}
 
 	override function onDestroy(event:ScriptEvent) {
@@ -468,39 +475,42 @@ class PhillyStreetsErectStage extends Stage
 	{
 		super.onUpdate(event);
 
-		_timer += event.elapsed;
-		mist0.y = 660 + (Math.sin(_timer*0.35)*70);
-		mist1.y = 500 + (Math.sin(_timer*0.3)*80);
-		mist2.y = 540 + (Math.sin(_timer*0.4)*60);
-		mist3.y = 230 + (Math.sin(_timer*0.3)*70);
-		mist4.y = 170 + (Math.sin(_timer*0.35)*50);
-		mist5.y = -80 + (Math.sin(_timer*0.08)*100);
-		// mist3.y = -20 + (Math.sin(_timer*0.5)*200);
-		// mist4.y = -180 + (Math.sin(_timer*0.4)*300);
-		// mist5.y = -450 + (Math.sin(_timer*0.2)*1xxx50);
-		//trace(mist1.y);
-
-		var remappedIntensityValue:Float = FlxMath.remapToRange(Conductor.instance.songPosition, 0, FlxG.sound.music != null ? FlxG.sound.music.length : 0.0, rainShaderStartIntensity, rainShaderEndIntensity);
-		rainShader.intensity = remappedIntensityValue;
-		rainShader.updateViewInfo(FlxG.width, FlxG.height, FlxG.camera);
-		rainShader.update(event.elapsed);
-
 		if(scrollingSky != null) scrollingSky.scrollX -= FlxG.elapsed * 22;
 
-		if(PlayState.instance.currentStage.getBoyfriend() != null && PlayState.instance.currentStage.getBoyfriend().shader == null){
-      PlayState.instance.currentStage.getBoyfriend().shader = colorShader;
-		  PlayState.instance.currentStage.getGirlfriend().shader = colorShader;
-		  PlayState.instance.currentStage.getDad().shader = colorShader;
+		if (Preferences.quality == 'High')
+		{
+			_timer += event.elapsed;
+			mist0.y = 660 + (Math.sin(_timer*0.35)*70);
+			mist1.y = 500 + (Math.sin(_timer*0.3)*80);
+			mist2.y = 540 + (Math.sin(_timer*0.4)*60);
+			mist3.y = 230 + (Math.sin(_timer*0.3)*70);
+			mist4.y = 170 + (Math.sin(_timer*0.35)*50);
+			mist5.y = -80 + (Math.sin(_timer*0.08)*100);
+			// mist3.y = -20 + (Math.sin(_timer*0.5)*200);
+			// mist4.y = -180 + (Math.sin(_timer*0.4)*300);
+			// mist5.y = -450 + (Math.sin(_timer*0.2)*1xxx50);
+			//trace(mist1.y);
 
-		  colorShader.hue = -5;
-		  colorShader.saturation = -40;
-		  colorShader.contrast = -25;
-		  colorShader.brightness = -20;
-    }
+			var remappedIntensityValue:Float = FlxMath.remapToRange(Conductor.instance.songPosition, 0, FlxG.sound.music != null ? FlxG.sound.music.length : 0.0, rainShaderStartIntensity, rainShaderEndIntensity);
+			rainShader.intensity = remappedIntensityValue;
+			rainShader.updateViewInfo(FlxG.width, FlxG.height, FlxG.camera);
+			rainShader.update(event.elapsed);
 
-		// if (rainSndAmbience != null) {
-		// 	rainSndAmbience.volume = Math.min(0.3, remappedIntensityValue * 2);
-		// }
+			if(PlayState.instance.currentStage.getBoyfriend() != null && PlayState.instance.currentStage.getBoyfriend().shader == null){
+				PlayState.instance.currentStage.getBoyfriend().shader = colorShader;
+				PlayState.instance.currentStage.getGirlfriend().shader = colorShader;
+				PlayState.instance.currentStage.getDad().shader = colorShader;
+
+				colorShader.hue = -5;
+				colorShader.saturation = -40;
+				colorShader.contrast = -25;
+				colorShader.brightness = -20;
+			}
+
+			// if (rainSndAmbience != null) {
+			// 	rainSndAmbience.volume = Math.min(0.3, remappedIntensityValue * 2);
+			// }
+		}
 	}
 
 	function onBeatHit(event:SongTimeScriptEvent)
@@ -605,7 +615,8 @@ class PhillyStreetsErectStage extends Stage
 	override function onGameOver(event:ScriptEvent):Void {
 		super.onGameOver(event);
 		// Make it so the rain shader doesn't show over the game over screen
-		FlxG.camera.filters = [];
+		if (Preferences.quality == 'High')
+			FlxG.camera.filters = [];
 	}
 
 	override function onSongRetry(event:ScriptEvent):Void {
@@ -615,7 +626,8 @@ class PhillyStreetsErectStage extends Stage
 
 		resetCar(true, true);
 		resetStageValues();
-		FlxG.camera.filters = [rainShaderFilter];
+		if (Preferences.quality == 'High')
+			FlxG.camera.filters = [rainShaderFilter];
 	}
 
 	override function addProp(prop:StageProp, ?name:String = null)

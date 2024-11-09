@@ -2,6 +2,7 @@ import flixel.FlxG;
 import flixel.math.FlxAngle;
 import funkin.play.PlayState;
 import funkin.play.stage.Stage;
+import funkin.Preferences;
 
 class TankmanBattlefieldStage extends Stage
 {
@@ -26,8 +27,11 @@ class TankmanBattlefieldStage extends Stage
 		clouds.y = FlxG.random.int(-20, 20);
 		clouds.velocity.x = FlxG.random.float(5, 15);
 
-		tankAngle = FlxG.random.int(-90, 45);
-		tankSpeed = FlxG.random.float(5, 7);
+		if (Preferences.quality == "High")
+		{
+			tankAngle = FlxG.random.int(-90, 45);
+			tankSpeed = FlxG.random.float(5, 7);
+		}
 	}
 
 	function onUpdate(event:UpdateScriptEvent):Void
@@ -48,13 +52,16 @@ class TankmanBattlefieldStage extends Stage
 
 	function moveTank(elapsed:Float):Void
 	{
-		var daAngleOffset:Float = 1;
-		tankAngle += elapsed * tankSpeed;
+		if (Preferences.quality == "High")
+		{
+			var daAngleOffset:Float = 1;
+			tankAngle += elapsed * tankSpeed;
 
-		var tankRolling = getNamedProp('tankRolling');
-		tankRolling.angle = tankAngle - 90 + 15;
-		tankRolling.x = tankX + Math.cos(FlxAngle.asRadians((tankAngle * daAngleOffset) + 180)) * 1500;
-		tankRolling.y = 1300 + Math.sin(FlxAngle.asRadians((tankAngle * daAngleOffset) + 180)) * 1100;
+			var tankRolling = getNamedProp('tankRolling');
+			tankRolling.angle = tankAngle - 90 + 15;
+			tankRolling.x = tankX + Math.cos(FlxAngle.asRadians((tankAngle * daAngleOffset) + 180)) * 1500;
+			tankRolling.y = 1300 + Math.sin(FlxAngle.asRadians((tankAngle * daAngleOffset) + 180)) * 1100;
+		}
 	}
 
 	function onSongRetry(event:ScriptEvent)

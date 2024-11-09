@@ -20,6 +20,7 @@ import openfl.filters.ShaderFilter;
 import funkin.util.FlxTweenUtil;
 import flixel.addons.display.FlxTiledSprite;
 import StringTools;
+import funkin.Preferences;
 
 class PhillyStreetsStage extends Stage
 {
@@ -122,32 +123,35 @@ class PhillyStreetsStage extends Stage
 		// carSndAmbience.volume = 0;
 		// carSndAmbience.play(false, FlxG.random.float(0, carSndAmbience.length));
 
-		// rainShader.puddleMap = Assets.getBitmapData(Paths.image("phillyStreets/puddle"));
-		rainShader.scale = FlxG.height / 200; // adjust this value so that the rain looks nice
-
-		FlxG.console.registerObject("rainShader", rainShader);
-		switch (PlayState.instance.currentSong.id)
+		if (Preferences.quality == 'High')
 		{
-			case "darnell":
-				rainShaderStartIntensity = 0;
-				rainShaderEndIntensity = 0.1;
-			case "lit-up":
-				rainShaderStartIntensity = 0.1;
-				rainShaderEndIntensity = 0.2;
-			case "2hot":
-				rainShaderStartIntensity = 0.2;
-				rainShaderEndIntensity = 0.4;
+			// rainShader.puddleMap = Assets.getBitmapData(Paths.image("phillyStreets/puddle"));
+			rainShader.scale = FlxG.height / 200; // adjust this value so that the rain looks nice
+
+			FlxG.console.registerObject("rainShader", rainShader);
+			switch (PlayState.instance.currentSong.id)
+			{
+				case "darnell":
+					rainShaderStartIntensity = 0;
+					rainShaderEndIntensity = 0.1;
+				case "lit-up":
+					rainShaderStartIntensity = 0.1;
+					rainShaderEndIntensity = 0.2;
+				case "2hot":
+					rainShaderStartIntensity = 0.2;
+					rainShaderEndIntensity = 0.4;
+			}
+
+			rainShader.intensity = rainShaderStartIntensity;
+
+			// set the shader input
+			//rainShader.mask = frameBufferMan.getFrameBuffer("mask");
+			//rainShader.lightMap = frameBufferMan.getFrameBuffer("lightmap");
+
+			rainShaderFilter = new ShaderFilter(rainShader);
+			FlxG.camera.filters = [rainShaderFilter];
+			//FlxG.camera.setFilters([new openfl.filters.BlurFilter(16,16)]);
 		}
-
-		rainShader.intensity = rainShaderStartIntensity;
-
-		// set the shader input
-		//rainShader.mask = frameBufferMan.getFrameBuffer("mask");
-		//rainShader.lightMap = frameBufferMan.getFrameBuffer("lightmap");
-
-		rainShaderFilter = new ShaderFilter(rainShader);
-		FlxG.camera.filters = [rainShaderFilter];
-		//FlxG.camera.setFilters([new openfl.filters.BlurFilter(16,16)]);
 
 		resetCar(true, true);
 		resetStageValues();
@@ -375,10 +379,13 @@ class PhillyStreetsStage extends Stage
 	{
 		super.onUpdate(event);
 
-		var remappedIntensityValue:Float = FlxMath.remapToRange(Conductor.instance.songPosition, 0, FlxG.sound.music != null ? FlxG.sound.music.length : 0.0, rainShaderStartIntensity, rainShaderEndIntensity);
-		rainShader.intensity = remappedIntensityValue;
-		rainShader.updateViewInfo(FlxG.width, FlxG.height, FlxG.camera);
-		rainShader.update(event.elapsed);
+		if (Preferences.quality == 'High')
+		{
+			var remappedIntensityValue:Float = FlxMath.remapToRange(Conductor.instance.songPosition, 0, FlxG.sound.music != null ? FlxG.sound.music.length : 0.0, rainShaderStartIntensity, rainShaderEndIntensity);
+			rainShader.intensity = remappedIntensityValue;
+			rainShader.updateViewInfo(FlxG.width, FlxG.height, FlxG.camera);
+			rainShader.update(event.elapsed);
+		}
 
 		if(scrollingSky != null) scrollingSky.scrollX -= FlxG.elapsed * 22;
 
@@ -475,7 +482,8 @@ class PhillyStreetsStage extends Stage
 	override function onGameOver(event:ScriptEvent):Void {
 		super.onGameOver(event);
 		// Make it so the rain shader doesn't show over the game over screen
-		FlxG.camera.filters = [];
+		if (Preferences.quality == 'High')
+			FlxG.camera.filters = [];
 	}
 
 	override function onSongRetry(event:ScriptEvent):Void {
@@ -497,7 +505,7 @@ class PhillyStreetsStage extends Stage
 			prop.alpha = 0.6;
 			//frameBufferMan.moveSpriteTo("lightmap", prop);
 		}
-		else if (name == "puddle")
+		else if (name == "puddle" && Preferences.quality == 'High')
 		{
 			rainShader.puddleY = prop.y + 80;
 			rainShader.puddleScaleY = 0.3;

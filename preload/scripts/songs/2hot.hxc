@@ -345,7 +345,7 @@ class TwoHOTSong extends Song
 		impactParticle.y = PlayState.instance.currentStage.getBoyfriend().y - 200;
 		PlayState.instance.currentStage.add(impactParticle);
 
-		impactParticle.animation.finishCallback = function()
+		impactParticleonFinish.add = function()
 		{
 			impactParticle.kill();
 		};

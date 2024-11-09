@@ -4,6 +4,7 @@ import funkin.graphics.shaders.WiggleEffectRuntime;
 import funkin.graphics.shaders.WiggleEffectType;
 import flixel.addons.effects.FlxTrail;
 import funkin.play.Countdown;
+import funkin.Preferences;
 
 class SchoolEvilStage extends Stage
 {
@@ -18,7 +19,8 @@ class SchoolEvilStage extends Stage
 	{
 		super.buildStage();
 
-		wiggle = new WiggleEffectRuntime(2, 4, 0.017, WiggleEffectType.DREAMY);
+		if (Preferences.quality == 'High')
+			wiggle = new WiggleEffectRuntime(2, 4, 0.017, WiggleEffectType.DREAMY);
 
 		getNamedProp('evilSchoolBG').shader = wiggle;
 		getNamedProp('evilSchoolFG').shader = wiggle;

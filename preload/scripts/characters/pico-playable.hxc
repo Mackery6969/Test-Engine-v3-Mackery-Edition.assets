@@ -58,7 +58,7 @@ class PicoPlayerCharacter extends MultiSparrowCharacter {
 		deathSpriteNene.y = gf.originalPosition.y - 200;// + 70;
 		deathSpriteNene.animation.addByPrefix('throw', "knife toss0", 24, false);
 		deathSpriteNene.visible = true;
-		deathSpriteNene.animation.finishCallback = function(name:String) {
+		deathSpriteNeneonFinish.add = function(name:String) {
 			deathSpriteNene.visible = false;
 		}
 	}

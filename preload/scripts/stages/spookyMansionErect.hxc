@@ -11,6 +11,7 @@ import funkin.play.character.CharacterDataParser;
 import funkin.play.character.CharacterType;
 import funkin.play.PlayState;
 import funkin.graphics.shaders.RuntimeRainShader;
+import funkin.Preferences;
 
 class SpookyMansionErectStage extends Stage
 {
@@ -29,20 +30,24 @@ class SpookyMansionErectStage extends Stage
 	{
 		super.onCreate(event);
 
-		trace('Applying rain shader...');
+		if (Preferences.quality == 'High')
+		{
+			trace('Applying rain shader...');
 
-		// adjust this value so that the rain looks nice
-		rainShader.scale = FlxG.height / 200 * 2;
-		rainShader.intensity = 0.4;
-		rainShader.spriteMode = true;
+			// adjust this value so that the rain looks nice
+			rainShader.scale = FlxG.height / 200 * 2;
+			rainShader.intensity = 0.4;
+			rainShader.spriteMode = true;
 
-		rainShaderTarget = getNamedProp('bgTrees');
-		rainShaderTarget.shader = rainShader;
-		rainShaderTarget.animation.callback = onBranchFrame;
+			rainShaderTarget = getNamedProp('bgTrees');
+			rainShaderTarget.shader = rainShader;
+			rainShaderTarget.animation.callback = onBranchFrame;
+		}
 	}
 
 	function onBranchFrame(name, frameNum, frameIndex) {
-		rainShader.updateFrameInfo(rainShaderTarget.frame);
+		if (Preferences.quality == 'High')
+			rainShader.updateFrameInfo(rainShaderTarget.frame);
 	}
 
   override function buildStage()
@@ -55,7 +60,8 @@ class SpookyMansionErectStage extends Stage
   override function onUpdate(event:UpdateScriptEvent)
 	{
 		super.onUpdate(event);
-		rainShader.update(event.elapsed);
+		if (Preferences.quality == 'High')
+			rainShader.update(event.elapsed);
 	}
 
 	function doLightningStrike(playSound:Bool, beat:Int):Void
