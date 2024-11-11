@@ -17,11 +17,8 @@ vec4 dots(vec4 color) {
     color.rgb = 1.0 - color.rgb;
   }
 
-
-
   return color;
 }
-
 
 void main() {
 	// Get the texture to apply to.

@@ -15,7 +15,6 @@ import funkin.play.PauseSubState;
 import funkin.modding.module.ModuleHandler;
 import flixel.tweens.FlxTween;
 
-
 class PicoPlayerCharacter extends MultiSparrowCharacter {
 	function new() {
 		super('pico-playable');
@@ -58,7 +57,7 @@ class PicoPlayerCharacter extends MultiSparrowCharacter {
 		deathSpriteNene.y = gf.originalPosition.y - 200;// + 70;
 		deathSpriteNene.animation.addByPrefix('throw', "knife toss0", 24, false);
 		deathSpriteNene.visible = true;
-		deathSpriteNeneonFinish.add = function(name:String) {
+		deathSpriteNene.animation.finishCallback = function(name:String) {
 			deathSpriteNene.visible = false;
 		}
 	}

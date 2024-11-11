@@ -9,6 +9,7 @@ class PicoPlayableCharacter extends PlayableCharacter
 	}
 
   override function isUnlocked():Bool {
-    return Save.instance.hasBeatenLevel('weekend1');
+		return true; // remove the need to breat weekend1
+    // return Save.instance.hasBeatenLevel('weekend1');
   }
 }

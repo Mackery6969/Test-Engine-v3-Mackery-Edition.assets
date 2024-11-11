@@ -60,7 +60,7 @@ class PicoChristmasCharacter extends MultiSparrowCharacter {
 		deathSpriteNene.zIndex = this.zIndex - 5;
 		deathSpriteNene.animation.addByPrefix('throw', "knife toss xmas0", 24, false);
 		deathSpriteNene.visible = true;
-		deathSpriteNeneonFinish.add = function(name:String) {
+		deathSpriteNene.animation.finishCallback = function(name:String) {
 			deathSpriteNene.visible = false;
 		}
 	}

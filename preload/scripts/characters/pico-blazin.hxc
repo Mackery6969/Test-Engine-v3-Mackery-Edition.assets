@@ -154,7 +154,7 @@ class PicoBlazinCharacter extends AnimateAtlasCharacter
 		picoDeathConfirm.visible = true;
 		this.visible = false;
 
-		picoDeathConfirmonFinish.add = () -> {
+		picoDeathConfirm.animation.finishCallback = () -> {
 			picoDeathConfirm.visible = false;
 			this.visible = true;
 		}

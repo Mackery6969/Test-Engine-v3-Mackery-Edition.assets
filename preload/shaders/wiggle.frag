@@ -9,7 +9,7 @@ const int EFFECT_TYPE_FLAG = 4;
 /**
  * The current time. Used to shift the effect over time.
  */
-uniform float uTime;		
+uniform float uTime;
 /**
  * Which out of several effects should be used.
  */
@@ -17,11 +17,11 @@ uniform int effectType;
 /**
  * How fast the waves move over time.
  */
-uniform float uSpeed;		
+uniform float uSpeed;
 /**
  * Number of waves over time.
  */
-uniform float uFrequency;		
+uniform float uFrequency;
 /**
  * How much the pixels are going to stretch over the waves.
  */
@@ -30,7 +30,7 @@ uniform float uWaveAmplitude;
 vec2 sineWave(vec2 pt) {
 	float x = 0.0;
 	float y = 0.0;
-			
+
 	if (effectType == EFFECT_TYPE_DREAMY) {
 		float w = 1.0 / openfl_TextureSize.y;
 		float h = 1.0 / openfl_TextureSize.x;
@@ -40,7 +40,7 @@ vec2 sineWave(vec2 pt) {
 		pt.x = floor(pt.x / h) * h;
 
 		float offsetX = sin(pt.x * uFrequency + uTime * uSpeed) * uWaveAmplitude;
-    
+
 		pt.y += floor(offsetX / w) * w; // * (pt.y - 1.0); // <- Uncomment to stop bottom part of the screen from moving
 		pt.y = floor(pt.y / w) * w;
 
@@ -57,7 +57,7 @@ vec2 sineWave(vec2 pt) {
 		y = sin(pt.y * uFrequency + 10.0 * pt.x + uTime * uSpeed) * uWaveAmplitude;
 		x = sin(pt.x * uFrequency + 5.0 * pt.y + uTime * uSpeed) * uWaveAmplitude;
 	}
-			
+
 	return vec2(pt.x + x, pt.y + y);
 }
 

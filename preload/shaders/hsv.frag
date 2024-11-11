@@ -41,4 +41,3 @@ void main() {
   color = vec4(hsv2rgb(vec3(swagColor[0], swagColor[1], swagColor[2])), swagColor[3]);
 	gl_FragColor = color;
 }
-

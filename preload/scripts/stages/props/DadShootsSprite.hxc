@@ -9,7 +9,6 @@ import flixel.FlxG;
 
 class DadShootsSprite extends FlxAtlasSprite
 {
-
   public function new(x:Float, y:Float)
   {
     super(x, y, Paths.animateAtlas("christmas/parents_shoot_assets", "week5"), {
