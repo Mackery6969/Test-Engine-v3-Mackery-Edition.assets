@@ -1,0 +1,18 @@
+import funkin.ui.story.Level;
+import funkin.save.Save;
+
+class TestLevel extends Level
+{
+	function new()
+	{
+		super('test');
+	}
+
+  override function isUnlocked():Bool {
+    return true;
+  }
+
+  override function isVisible():Bool {
+    return false;
+  }
+}

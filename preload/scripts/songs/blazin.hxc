@@ -36,12 +36,14 @@ class BlazinSong extends Song {
 	}
 
 	public function listDifficulties(variationId:String, variationIds:Array<String>, showLocked:Bool):Array<String> {
-		if (showLocked || Save.instance.hasBeatenLevel('weekend1')) {
-			return super.listDifficulties(variationId, variationIds);
+		// if (showLocked || Save.instance.hasBeatenLevel('weekend1')) {
+		return super.listDifficulties(variationId, variationIds);
+		/*
 		}
 
 		// Hide all difficulties if the player has not beaten the week.
 		return [];
+		 */
 	}
 
 	var hasHidden = false;
