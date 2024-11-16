@@ -54,7 +54,6 @@
       "scale": [1, 1],
       "scroll": [0.4, 0.4],
       "zIndex": 14,
-      "isHighQualityOnly": true,
       "animations": [
         { "name": "smokeLeft", "prefix": "SmokeBlurLeft", "looped": true }
       ],
@@ -66,7 +65,6 @@
       "position": [1100, -100],
       "scale": [1, 1],
       "zIndex": 15,
-      "isHighQualityOnly": true,
       "scroll": [0.4, 0.4],
       "animations": [
         { "name": "smokeRight", "prefix": "SmokeRight", "looped": true }
@@ -95,7 +93,6 @@
       "position": [300, 300],
       "scale": [1, 1],
       "zIndex": 22,
-      "isHighQualityOnly": true,
       "scroll": [0.5, 0.5],
       "animations": [
         { "name": "roll", "prefix": "BG tank w lighting", "looped": true }
