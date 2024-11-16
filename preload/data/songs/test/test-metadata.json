@@ -2,7 +2,6 @@
   "version": "2.2.4",
   "songName": "Test",
   "artist": "Kawaii Sprite",
-  "charter": "Mackery",
   "divisions": 96,
   "looped": false,
   "offsets": {
@@ -13,7 +12,7 @@
   },
   "playData": {
     "songVariations": [],
-    "difficulties": ["normal"],
+    "difficulties": ["easy", "normal", "hard"],
     "characters": {
       "player": "bf",
       "girlfriend": "gf",
@@ -26,11 +25,13 @@
     "stage": "mainStage",
     "noteStyle": "funkin",
     "ratings": {
-      "normal": 2
+      "easy": 1,
+      "normal": 2,
+      "hard": 2
     },
     "album": "volume2",
     "previewStart": 0,
-    "previewEnd": 3300
+    "previewEnd": 0
   },
   "generatedBy": "Friday Night Funkin' Test Engine' - v0.5.2",
   "timeFormat": "ms",
